@@ -1,0 +1,20 @@
+{
+  "name": "update-chunk-links-in-files-webpack-plugin",
+  "version": "1.0.0",
+  "description": "a WebPack plugin which updates chunk links in HTML/PHP/ASPX files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "chunks"
+  ],
+  "author": "Nikola Derežić",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knee-cola/update-chunk-links-in-files-webpack-plugin.git"
+  }
+}
