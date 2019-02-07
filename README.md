@@ -42,7 +42,7 @@ module.exports = {
                 path.resolve(__dirname, '_site/master-pages/default.aspx')
             ],
             // regexp patterns to be used to find chunk names in the file
-            assetsPatterns: [
+            chunkNamePatterns: [
                 /vendor\.[a-z0-9]+\.bundle\.js/g,
                 /app\.[a-z0-9]+\.bundle\.js/g
             ]

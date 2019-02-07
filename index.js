@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function UpdateChunkLinksInFilesWebpackPlugin(options) {
     this.options = options;
 }
