@@ -45,6 +45,12 @@ module.exports = {
             chunkNamePatterns: [
                 /vendor\.[a-z0-9]+\.bundle\.js/g,
                 /app\.[a-z0-9]+\.bundle\.js/g
+            ],
+            // (optional) regexp anti-patterns which can be used to exclude
+            // chunk names from being inserted into HTML ... i.e. source maps
+            chunkNameAntiPatterns: [
+                /vendor\.[a-z0-9]+\.bundle\.js.map/g,
+                /app\.[a-z0-9]+\.bundle\.js.map/g
             ]
         })
     ]

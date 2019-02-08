@@ -8,7 +8,7 @@ UpdateChunkLinksInFilesWebpackPlugin.prototype.apply = function(compiler) {
 
     compiler.hooks.emit.tapAsync("UpdateChunkLinksInFilesWebpackPlugin", (compilation, callback) => {
 
-        const {replaceInFiles, chunkNamePatterns, enabled, disabled} = this.options;
+        const {replaceInFiles, chunkNamePatterns, chunkNameAntiPatterns, enabled, disabled} = this.options;
 
         if(enabled===false || disabled===true) {
             callback(); // passing the control back to WebPack
@@ -22,9 +22,19 @@ UpdateChunkLinksInFilesWebpackPlugin.prototype.apply = function(compiler) {
         let matchingChunks = Object.keys(compilation.assets)
             .map(chunkFilename =>
                 // `reduce` tries to match the given chunk with one of the patterns
-                chunkNamePatterns.reduce((prevResult, pattern) => !prevResult && pattern.test(chunkFilename) ? {chunkFilename, pattern} : prevResult, false))
-            // keep only `chunkFilename`s which were matched by a pattern
-            .filter(chunkFilename => !!chunkFilename)
+                // > IF match is found it will return `chunkInfo` - `chunkFilename` passed the test
+                // > ELSE othervise it will return `null` - `chunkInfo` didn't pass the test
+                chunkNamePatterns.reduce((prevResult, pattern) => !prevResult && pattern.test(chunkFilename) ? {chunkFilename, pattern} : prevResult, false));
+        
+        if(chunkNameAntiPatterns) {
+            matchingChunks = matchingChunks.map(chunkInfo =>
+                // `reduce` tries to match the given chunk with any of the anti-patterns
+                // > IF match is found it will return `null` - `chunkInfo` didn't pass the test
+                // > ELSE othervise it will return unchanged `chunkInfo` - `chunkInfo` passed the test
+                chunkNameAntiPatterns.reduce((prevResult, antiPattern) => prevResult && !antiPattern.test(chunkInfo.chunkFilename) ? chunkInfo : null, false));
+        }
+            // keep only `chunkInfo`s which were survived the `reduce` calls
+        chunkNameAntiPatterns.filter(chunkInfo => !!chunkInfo)
 
         if(matchingChunks.length > 0) {
 
