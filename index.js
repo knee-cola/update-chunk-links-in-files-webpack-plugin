@@ -31,7 +31,7 @@ UpdateChunkLinksInFilesWebpackPlugin.prototype.apply = function(compiler) {
                 // `reduce` tries to match the given chunk with any of the anti-patterns
                 // > IF match is found it will return `null` - `chunkInfo` didn't pass the test
                 // > ELSE othervise it will return unchanged `chunkInfo` - `chunkInfo` passed the test
-                chunkNameAntiPatterns.reduce((prevResult, antiPattern) => prevResult && !antiPattern.test(chunkInfo.chunkFilename) ? chunkInfo : null, false));
+                chunkNameAntiPatterns.reduce((prevResult, antiPattern) => prevResult && !antiPattern.test(chunkInfo.chunkFilename) ? chunkInfo : false, chunkInfo));
         }
 
         // keep only `chunkInfo`s which were survived the `reduce` calls
