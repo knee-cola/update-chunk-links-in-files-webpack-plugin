@@ -1,6 +1,6 @@
 {
   "name": "update-chunk-links-in-files-webpack-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a WebPack plugin which updates chunk links in HTML/PHP/ASPX files",
   "main": "index.js",
   "scripts": {
